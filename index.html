@@ -4,63 +4,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Yonoplay.com - Gaming Platform</title>
-<meta name="description" content="Yonoplay.com - Discover games, download apps and explore the latest gaming updates.">
-<meta name="keywords" content="Yonoplay, Yono game, gaming, games, download games">
+<title>Yonoplay.com | Gaming Platform</title>
+
+<meta name="description"
+content="Yonoplay.com - Discover the latest games, gaming apps and updates in one place.">
+
+<meta name="keywords"
+content="Yonoplay, Yono Game, games, gaming apps, game download">
+
 <meta name="robots" content="index, follow">
 
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#080b14;
+    background:#070b17;
     color:#fff;
 }
 
+/* HEADER */
+
 header{
-    background:linear-gradient(135deg,#111936,#080b14);
-    padding:18px 5%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:1px solid #20294b;
     position:sticky;
     top:0;
-    z-index:100;
+    z-index:999;
+    background:rgba(7,11,23,.95);
+    border-bottom:1px solid #202a4d;
+    backdrop-filter:blur(10px);
+}
+
+.navbar{
+    max-width:1150px;
+    margin:auto;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:bold;
+    font-size:28px;
+    font-weight:800;
     color:#20e6ff;
 }
 
 .logo span{
-    color:#7b5cff;
+    color:#7657ff;
 }
 
 nav a{
     color:#fff;
     text-decoration:none;
-    margin-left:20px;
-    font-size:14px;
+    margin-left:22px;
+    font-size:15px;
 }
 
+nav a:hover{
+    color:#20e6ff;
+}
+
+/* HERO */
+
 .hero{
+    min-height:650px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     text-align:center;
     padding:80px 20px;
     background:
-    radial-gradient(circle at top,#263b82 0,#10162d 35%,#080b14 70%);
+    radial-gradient(circle at 50% 20%,#263e91 0,#10182f 35%,#070b17 72%);
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:30px;
+    background:#151e3c;
+    border:1px solid #31416f;
+    color:#20e6ff;
+    margin-bottom:25px;
+    font-size:14px;
 }
 
 .hero h1{
-    font-size:42px;
-    margin-bottom:18px;
+    font-size:58px;
+    line-height:1.1;
+    margin-bottom:25px;
 }
 
 .hero h1 span{
@@ -68,116 +112,244 @@ nav a{
 }
 
 .hero p{
-    color:#c7cbe0;
-    max-width:650px;
-    margin:auto;
+    color:#b9c1dc;
+    font-size:18px;
     line-height:1.7;
+    max-width:680px;
+    margin:auto;
 }
 
-.buttons{
-    margin-top:30px;
+.hero-buttons{
+    margin-top:35px;
 }
 
 .btn{
     display:inline-block;
-    padding:14px 25px;
-    margin:6px;
+    padding:15px 28px;
     border-radius:10px;
     text-decoration:none;
     font-weight:bold;
+    margin:6px;
+    transition:.25s;
 }
 
-.primary{
+.btn-primary{
     background:#20e6ff;
-    color:#071018;
+    color:#061019;
 }
 
-.secondary{
-    background:#7b5cff;
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 30px rgba(32,230,255,.25);
+}
+
+.btn-secondary{
+    background:#7657ff;
     color:white;
 }
 
+.btn-secondary:hover{
+    transform:translateY(-3px);
+}
+
+/* CONTAINER */
+
 .container{
-    width:90%;
-    max-width:1100px;
-    margin:50px auto;
+    width:92%;
+    max-width:1150px;
+    margin:80px auto;
 }
 
 .section-title{
     text-align:center;
-    margin-bottom:30px;
-    font-size:28px;
+    font-size:36px;
+    margin-bottom:15px;
 }
+
+.section-text{
+    text-align:center;
+    color:#9fa8c7;
+    max-width:650px;
+    margin:0 auto 40px;
+    line-height:1.7;
+}
+
+/* SEARCH */
+
+.search-box{
+    max-width:600px;
+    margin:0 auto 45px;
+    display:flex;
+}
+
+.search-box input{
+    width:100%;
+    padding:16px 18px;
+    border-radius:10px 0 0 10px;
+    border:1px solid #293558;
+    outline:none;
+    background:#11182d;
+    color:white;
+    font-size:16px;
+}
+
+.search-box button{
+    border:none;
+    padding:0 22px;
+    background:#20e6ff;
+    color:#061019;
+    font-weight:bold;
+    border-radius:0 10px 10px 0;
+}
+
+/* GAME GRID */
 
 .games{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
 }
 
 .card{
-    background:#11172b;
-    border:1px solid #252e50;
-    border-radius:16px;
-    padding:25px;
+    background:linear-gradient(145deg,#111a32,#0d1326);
+    border:1px solid #273455;
+    border-radius:18px;
+    padding:28px;
     text-align:center;
     transition:.3s;
 }
 
 .card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-7px);
     border-color:#20e6ff;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 
-.icon{
-    width:70px;
-    height:70px;
-    margin:0 auto 18px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#20e6ff,#7b5cff);
+.game-icon{
+    width:90px;
+    height:90px;
+    margin:0 auto 20px;
+    border-radius:22px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:30px;
+    font-size:42px;
+    background:linear-gradient(135deg,#20e6ff,#7657ff);
 }
 
 .card h3{
-    margin-bottom:10px;
+    font-size:22px;
+    margin-bottom:12px;
 }
 
 .card p{
-    color:#aeb5d0;
+    color:#aab2ce;
     font-size:14px;
-    line-height:1.6;
-    margin-bottom:18px;
+    line-height:1.7;
+    min-height:70px;
+}
+
+.card-buttons{
+    margin-top:20px;
+}
+
+.small-btn{
+    display:inline-block;
+    padding:11px 17px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:bold;
+    margin:4px;
 }
 
 .download{
-    display:inline-block;
-    padding:11px 20px;
-    border-radius:8px;
     background:#20e6ff;
-    color:#071018;
-    text-decoration:none;
-    font-weight:bold;
+    color:#061019;
 }
 
-.info{
-    background:#11172b;
-    border:1px solid #252e50;
-    border-radius:16px;
-    padding:30px;
-    line-height:1.8;
-    color:#c5cbe0;
+.play{
+    background:#7657ff;
+    color:white;
 }
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.feature{
+    background:#10172b;
+    border:1px solid #252f50;
+    border-radius:15px;
+    padding:25px;
+    text-align:center;
+}
+
+.feature-icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.feature h3{
+    margin-bottom:10px;
+}
+
+.feature p{
+    color:#9fa8c7;
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* ABOUT */
+
+.about{
+    background:#10172b;
+    border:1px solid #252f50;
+    border-radius:18px;
+    padding:35px;
+    line-height:1.8;
+    color:#bbc3dc;
+}
+
+/* CONTACT */
+
+.contact{
+    text-align:center;
+    background:linear-gradient(135deg,#121c3c,#10152a);
+    border:1px solid #29365c;
+    border-radius:20px;
+    padding:50px 25px;
+}
+
+.contact h2{
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.contact p{
+    color:#aeb6d0;
+    margin-bottom:25px;
+}
+
+/* FOOTER */
 
 footer{
-    margin-top:70px;
-    padding:30px 20px;
+    background:#04060c;
+    border-top:1px solid #20294a;
+    padding:35px 20px;
     text-align:center;
-    background:#05070d;
-    color:#858ba5;
-    border-top:1px solid #20294b;
+    color:#777f9e;
+}
+
+.footer-logo{
+    color:#20e6ff;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:15px;
 }
 
 footer a{
@@ -185,119 +357,446 @@ footer a{
     text-decoration:none;
 }
 
-@media(max-width:600px){
-    .hero h1{
-        font-size:32px;
-    }
-
-    nav a{
-        margin-left:8px;
-        font-size:12px;
-    }
-
-    .logo{
-        font-size:20px;
-    }
+.footer-links{
+    margin:15px 0;
 }
+
+.footer-links a{
+    margin:0 10px;
+    font-size:14px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        min-height:580px;
+        padding:60px 18px;
+    }
+
+    .hero h1{
+        font-size:39px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .section-title{
+        font-size:30px;
+    }
+
+    .container{
+        margin:60px auto;
+    }
+
+    .search-box{
+        display:flex;
+    }
+
+    .card{
+        padding:24px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">Yono<span>play</span></div>
+<!-- HEADER -->
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#games">Games</a>
-        <a href="#about">About</a>
-    </nav>
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+Yono<span>play</span>
+</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#features">Features</a>
+<a href="#about">About</a>
+</nav>
+
+</div>
+
 </header>
 
+
+<!-- HERO -->
+
 <section class="hero" id="home">
-    <h1>Welcome to <span>Yonoplay</span></h1>
 
-    <p>
-        Discover the latest gaming apps, exciting games and gaming updates
-        all in one place.
-    </p>
+<div class="hero-content">
 
-    <div class="buttons">
-        <a href="#games" class="btn primary">Explore Games</a>
-        <a href="#about" class="btn secondary">Learn More</a>
-    </div>
+<div class="badge">
+🎮 Welcome to Yonoplay
+</div>
+
+<h1>
+Discover Your Next <span>Game</span>
+</h1>
+
+<p>
+Explore games, gaming applications and the latest gaming
+updates in one simple and modern platform.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#games" class="btn btn-primary">
+Explore Games
+</a>
+
+<a href="#about" class="btn btn-secondary">
+Learn More
+</a>
+
+</div>
+
+</div>
+
 </section>
+
+
+<!-- GAMES -->
 
 <section class="container" id="games">
 
-    <h2 class="section-title">Latest Games</h2>
+<h2 class="section-title">
+Latest Games
+</h2>
 
-    <div class="games">
+<p class="section-text">
+Browse our latest gaming listings and discover new
+gaming applications.
+</p>
 
-        <div class="card">
-            <div class="icon">🎮</div>
 
-            <h3>Yono Game</h3>
+<div class="search-box">
 
-            <p>
-                Explore the latest information and updates about this game.
-            </p>
+<input
+type="text"
+id="search"
+placeholder="Search games..."
+onkeyup="searchGames()">
 
-            <a href="#" class="download">Coming Soon</a>
-        </div>
+<button>
+Search
+</button>
 
-        <div class="card">
-            <div class="icon">🔥</div>
+</div>
 
-            <h3>New Game</h3>
 
-            <p>
-                A new gaming experience is coming soon to Yonoplay.
-            </p>
+<div class="games" id="gameList">
 
-            <a href="#" class="download">Coming Soon</a>
-        </div>
 
-        <div class="card">
-            <div class="icon">🏆</div>
+<!-- GAME 1 -->
 
-            <h3>Featured Game</h3>
+<div class="card game-card">
 
-            <p>
-                Check back soon for our featured gaming application.
-            </p>
+<div class="game-icon">
+🎮
+</div>
 
-            <a href="#" class="download">Coming Soon</a>
-        </div>
+<h3>Yono Game</h3>
 
-    </div>
+<p>
+Explore information and updates about Yono Game.
+Download links can be added here when available.
+</p>
+
+<div class="card-buttons">
+
+<a
+href="#"
+class="small-btn download">
+Download
+</a>
+
+<a
+href="#"
+class="small-btn play">
+Play
+</a>
+
+</div>
+
+</div>
+
+
+<!-- GAME 2 -->
+
+<div class="card game-card">
+
+<div class="game-icon">
+🔥
+</div>
+
+<h3>New Game</h3>
+
+<p>
+A new gaming application will be added to
+Yonoplay soon.
+</p>
+
+<div class="card-buttons">
+
+<a
+href="#"
+class="small-btn download">
+Coming Soon
+</a>
+
+</div>
+
+</div>
+
+
+<!-- GAME 3 -->
+
+<div class="card game-card">
+
+<div class="game-icon">
+🏆
+</div>
+
+<h3>Featured Game</h3>
+
+<p>
+Check back soon for more featured gaming
+applications and updates.
+</p>
+
+<div class="card-buttons">
+
+<a
+href="#"
+class="small-btn download">
+Coming Soon
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
 </section>
+
+
+<!-- FEATURES -->
+
+<section class="container" id="features">
+
+<h2 class="section-title">
+Why Yonoplay?
+</h2>
+
+<p class="section-text">
+A simple place to discover gaming applications
+and gaming information.
+</p>
+
+
+<div class="features">
+
+<div class="feature">
+
+<div class="feature-icon">
+🚀
+</div>
+
+<h3>Fast Access</h3>
+
+<p>
+Find your favourite gaming applications quickly.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+📱
+</div>
+
+<h3>Mobile Friendly</h3>
+
+<p>
+Designed to work smoothly on mobile phones,
+tablets and computers.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+🔄
+</div>
+
+<h3>Latest Updates</h3>
+
+<p>
+New games and information can be added regularly.
+</p>
+
+</div>
+
+
+<div class="feature">
+
+<div class="feature-icon">
+⭐
+</div>
+
+<h3>Easy to Use</h3>
+
+<p>
+Simple navigation makes finding games easier.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
 
 <section class="container" id="about">
 
-    <h2 class="section-title">About Yonoplay</h2>
+<h2 class="section-title">
+About Yonoplay
+</h2>
 
-    <div class="info">
-        <p>
-            Yonoplay.com is a gaming information platform designed to make
-            discovering new games and gaming applications simple and easy.
-        </p>
+<div class="about">
 
-        <p>
-            New games and updates can be added to this website in the future.
-            This website is an independent gaming information project.
-        </p>
-    </div>
+<p>
+Yonoplay.com is an independent gaming information
+platform created to make discovering games and gaming
+applications easier.
+</p>
+
+<br>
+
+<p>
+The website can be updated with new games, descriptions,
+images and official download links as they become available.
+</p>
+
+<br>
+
+<p>
+For safety, users should download applications only from
+trusted and official sources.
+</p>
+
+</div>
 
 </section>
 
+
+<!-- CONTACT -->
+
+<section class="container">
+
+<div class="contact">
+
+<h2>
+Stay Updated
+</h2>
+
+<p>
+More games and gaming updates are coming soon.
+</p>
+
+<a href="#games" class="btn btn-primary">
+View Games
+</a>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
 <footer>
-    <p>© 2026 Yonoplay.com — All Rights Reserved.</p>
-    <br>
-    <p>
-        Gaming information and updates for visitors.
-    </p>
+
+<div class="footer-logo">
+Yonoplay
+</div>
+
+<p>
+© 2026 Yonoplay.com
+</p>
+
+<div class="footer-links">
+
+<a href="#home">Home</a>
+<a href="#games">Games</a>
+<a href="#about">About</a>
+
+</div>
+
+<p>
+Independent gaming information platform.
+</p>
+
 </footer>
+
+
+<script>
+
+/* GAME SEARCH */
+
+function searchGames(){
+
+let input =
+document.getElementById("search")
+.value
+.toLowerCase();
+
+let games =
+document.querySelectorAll(".game-card");
+
+games.forEach(function(game){
+
+let name =
+game.querySelector("h3")
+.innerText
+.toLowerCase();
+
+if(name.includes(input)){
+
+game.style.display="block";
+
+}else{
+
+game.style.display="none";
+
+}
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
