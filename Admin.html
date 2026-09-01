@@ -2,153 +2,362 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Yonoplay Admin Panel</title>
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
-  background:#070b17;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+    font-family:Arial, Helvetica, sans-serif;
+    min-height:100vh;
+    background:#070b17;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
 .login-box{
-  width:100%;
-  max-width:400px;
-  background:#111a33;
-  border:1px solid #26345f;
-  border-radius:20px;
-  padding:35px 25px;
-  box-shadow:0 15px 50px rgba(0,0,0,.4);
+    width:100%;
+    max-width:420px;
+    background:#111a33;
+    border:1px solid #26345f;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 50px rgba(0,0,0,.4);
 }
 
 .logo{
-  text-align:center;
-  font-size:30px;
-  font-weight:bold;
-  margin-bottom:10px;
-  color:#2edcff;
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:10px;
+    color:#2edcff;
 }
 
 .logo span{
-  color:#7657ff;
+    color:#7657ff;
 }
 
 h2{
-  text-align:center;
-  margin-bottom:8px;
+    text-align:center;
+    margin-bottom:10px;
 }
 
-p{
-  text-align:center;
-  color:#aab3c8;
-  margin-bottom:25px;
+.subtitle{
+    text-align:center;
+    color:#aab3c8;
+    margin-bottom:25px;
 }
 
 input{
-  width:100%;
-  padding:15px;
-  margin-bottom:15px;
-  border-radius:10px;
-  border:1px solid #33436d;
-  background:#0a1022;
-  color:white;
-  font-size:16px;
+    width:100%;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+    border:1px solid #33436d;
+    background:#0a1022;
+    color:white;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#2edcff;
 }
 
 button{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:10px;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
-  background:linear-gradient(90deg,#2edcff,#7657ff);
-  color:white;
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(90deg,#2edcff,#7657ff);
+    color:white;
 }
 
-button:hover{
-  opacity:.9;
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }
 
-#error{
-  display:none;
-  color:#ff6b6b;
-  text-align:center;
-  margin-top:15px;
+.message{
+    margin-top:15px;
+    text-align:center;
+    font-size:14px;
+    min-height:20px;
+}
+
+.success{
+    color:#38e08f;
+}
+
+.error{
+    color:#ff6b6b;
+}
+
+.dashboard{
+    display:none;
+    width:100%;
+    max-width:700px;
+    background:#111a33;
+    border:1px solid #26345f;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+}
+
+.dashboard h1{
+    color:#2edcff;
+    margin-bottom:15px;
+}
+
+.dashboard p{
+    color:#aab3c8;
+    margin-bottom:25px;
+}
+
+.logout{
+    max-width:200px;
+    background:#ff5c6c;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="login-box" id="loginBox">
 
-<div class="logo">Yono<span>play</span></div>
+    <div class="logo">
+        Yono<span>play</span>
+    </div>
 
-<h2>Admin Login</h2>
+    <h2>Admin Login</h2>
 
-<p>Login to manage games</p>
+    <p class="subtitle">
+        Login to manage games
+    </p>
 
-<input
-type="email"
-id="email"
-placeholder="Admin Email"
->
+    <form id="loginForm">
 
-<input
-type="password"
-id="password"
-placeholder="Password"
->
+        <input
+            type="email"
+            id="email"
+            placeholder="Admin Email"
+            required
+        >
 
-<button onclick="login()">
-Login
-</button>
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+        >
 
-<div id="error">
-Invalid login details
+        <button type="submit" id="loginButton">
+            Login
+        </button>
+
+    </form>
+
+    <div class="message" id="message"></div>
+
 </div>
 
+
+<div class="dashboard" id="dashboard">
+
+    <h1>Yonoplay Admin Panel</h1>
+
+    <p id="welcomeText"></p>
+
+    <p>
+        Login successful. Your admin panel is connected.
+    </p>
+
+    <button
+        class="logout"
+        id="logoutButton"
+    >
+        Logout
+    </button>
+
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-function login(){
+const supabaseUrl =
+"https://nptdujhaayuggpwikbkam.supabase.co";
 
-const email =
-document.getElementById("email").value;
+const supabaseKey =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wdGR1amhhYXl1Z2dweWtia2FtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODU5MzEsImV4cCI6MjEwMTk2MTkzMX0.vpm4NI3BgUVSSmBxTsTZhaDJUGz4U1bdYxCkbFOhZEg";
 
-const password =
-document.getElementById("password").value;
 
-if(email === "" || password === ""){
+const supabase =
+window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
 
-document.getElementById("error")
-.style.display="block";
 
-return;
+const loginForm =
+document.getElementById("loginForm");
+
+const emailInput =
+document.getElementById("email");
+
+const passwordInput =
+document.getElementById("password");
+
+const message =
+document.getElementById("message");
+
+const loginButton =
+document.getElementById("loginButton");
+
+const loginBox =
+document.getElementById("loginBox");
+
+const dashboard =
+document.getElementById("dashboard");
+
+const welcomeText =
+document.getElementById("welcomeText");
+
+const logoutButton =
+document.getElementById("logoutButton");
+
+
+loginForm.addEventListener(
+"submit",
+async function(event){
+
+    event.preventDefault();
+
+    message.textContent = "";
+
+    const email =
+    emailInput.value.trim();
+
+    const password =
+    passwordInput.value;
+
+    loginButton.disabled = true;
+
+    loginButton.textContent =
+    "Logging in...";
+
+
+    const {
+        data,
+        error
+    } =
+    await supabase.auth.signInWithPassword({
+
+        email:email,
+
+        password:password
+
+    });
+
+
+    if(error){
+
+        message.textContent =
+        error.message;
+
+        message.className =
+        "message error";
+
+        loginButton.disabled =
+        false;
+
+        loginButton.textContent =
+        "Login";
+
+        return;
+    }
+
+
+    message.textContent =
+    "";
+
+    loginBox.style.display =
+    "none";
+
+    dashboard.style.display =
+    "block";
+
+    welcomeText.textContent =
+    "Logged in as: " +
+    data.user.email;
+
+}
+);
+
+
+async function checkUser(){
+
+    const {
+        data
+    } =
+    await supabase.auth.getUser();
+
+
+    if(data.user){
+
+        loginBox.style.display =
+        "none";
+
+        dashboard.style.display =
+        "block";
+
+        welcomeText.textContent =
+        "Logged in as: " +
+        data.user.email;
+
+    }
 
 }
 
-/* Supabase login next step */
 
-alert("Login system will be connected with Supabase.");
+logoutButton.addEventListener(
+"click",
+async function(){
+
+    await supabase.auth.signOut();
+
+    dashboard.style.display =
+    "none";
+
+    loginBox.style.display =
+    "block";
+
+    emailInput.value =
+    "";
+
+    passwordInput.value =
+    "";
 
 }
+);
+
+
+checkUser();
 
 </script>
 
