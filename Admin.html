@@ -199,167 +199,95 @@ button:disabled{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+const supabaseUrl = "https://nptdujhaayuggpwikbkam.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wdGR1amhhYXl1Z2dweWtia2FtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODU5MzEsImV4cCI6MjEwMTk2MTkzMX0.vpm4NI3BgUVSSmBxTsTZhaDJUGz4U1bdYxCkbFOhZEg";
 
-const supabaseUrl =
-"https://nptdujhaayuggpwikbkam.supabase.co";
-
-const supabaseKey =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wdGR1amhhYXl1Z2dweWtia2FtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODU5MzEsImV4cCI6MjEwMTk2MTkzMX0.vpm4NI3BgUVSSmBxTsTZhaDJUGz4U1bdYxCkbFOhZEg";
-
-
-const supabase =
-window.supabase.createClient(
-    supabaseUrl,
-    supabaseKey
+const client = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
 );
 
+const loginForm = document.getElementById("loginForm");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const message = document.getElementById("message");
+const loginButton = document.getElementById("loginButton");
+const loginBox = document.getElementById("loginBox");
+const dashboard = document.getElementById("dashboard");
+const welcomeText = document.getElementById("welcomeText");
+const logoutButton = document.getElementById("logoutButton");
 
-const loginForm =
-document.getElementById("loginForm");
+loginForm.addEventListener("submit", async function(event) {
 
-const emailInput =
-document.getElementById("email");
+  event.preventDefault();
 
-const passwordInput =
-document.getElementById("password");
+  alert("Login button working!");
 
-const message =
-document.getElementById("message");
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
 
-const loginButton =
-document.getElementById("loginButton");
+  message.textContent = "Logging in...";
+  loginButton.disabled = true;
 
-const loginBox =
-document.getElementById("loginBox");
+  try {
 
-const dashboard =
-document.getElementById("dashboard");
+    const { data, error } =
+      await client.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
 
-const welcomeText =
-document.getElementById("welcomeText");
-
-const logoutButton =
-document.getElementById("logoutButton");
-
-
-loginForm.addEventListener(
-"submit",
-async function(event){
-
-    event.preventDefault();
-
-    message.textContent = "";
-
-    const email =
-    emailInput.value.trim();
-
-    const password =
-    passwordInput.value;
-
-    loginButton.disabled = true;
-
-    loginButton.textContent =
-    "Logging in...";
-
-
-    const {
-        data,
-        error
-    } =
-    await supabase.auth.signInWithPassword({
-
-        email:email,
-
-        password:password
-
-    });
-
-
-    if(error){
-
-        message.textContent =
-        error.message;
-
-        message.className =
-        "message error";
-
-        loginButton.disabled =
-        false;
-
-        loginButton.textContent =
-        "Login";
-
-        return;
+    if (error) {
+      alert("Login Error: " + error.message);
+      message.textContent = error.message;
+      loginButton.disabled = false;
+      return;
     }
 
+    alert("Login Successful!");
 
-    message.textContent =
-    "";
-
-    loginBox.style.display =
-    "none";
-
-    dashboard.style.display =
-    "block";
+    loginBox.style.display = "none";
+    dashboard.style.display = "block";
 
     welcomeText.textContent =
-    "Logged in as: " +
-    data.user.email;
+      "Logged in as: " + data.user.email;
+
+  } catch (err) {
+
+    alert("System Error: " + err.message);
+    message.textContent = err.message;
+    loginButton.disabled = false;
+
+  }
+
+});
+
+logoutButton.addEventListener("click", async function() {
+
+  await client.auth.signOut();
+
+  dashboard.style.display = "none";
+  loginBox.style.display = "block";
+
+  emailInput.value = "";
+  passwordInput.value = "";
+
+});
+
+async function checkUser() {
+
+  const { data } = await client.auth.getUser();
+
+  if (data.user) {
+
+    loginBox.style.display = "none";
+    dashboard.style.display = "block";
+
+    welcomeText.textContent =
+      "Logged in as: " + data.user.email;
+  }
 
 }
-);
-
-
-async function checkUser(){
-
-    const {
-        data
-    } =
-    await supabase.auth.getUser();
-
-
-    if(data.user){
-
-        loginBox.style.display =
-        "none";
-
-        dashboard.style.display =
-        "block";
-
-        welcomeText.textContent =
-        "Logged in as: " +
-        data.user.email;
-
-    }
-
-}
-
-
-logoutButton.addEventListener(
-"click",
-async function(){
-
-    await supabase.auth.signOut();
-
-    dashboard.style.display =
-    "none";
-
-    loginBox.style.display =
-    "block";
-
-    emailInput.value =
-    "";
-
-    passwordInput.value =
-    "";
-
-}
-);
-
 
 checkUser();
-
 </script>
-
-</body>
-</html>
