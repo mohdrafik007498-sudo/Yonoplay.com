@@ -195,7 +195,35 @@ button:disabled{
 
 </div>
 
+<div id="gameManager" style="display:none; width:100%; max-width:700px; margin-top:25px; background:#111a33; padding:25px; border-radius:20px; border:1px solid #26345f;">
 
+<h2 style="color:#2edcff;">🎮 Add New Game</h2>
+
+<input id="gameName" type="text" placeholder="Game Name">
+
+<textarea id="gameDescription" placeholder="Game Description" style="width:100%;padding:15px;margin-bottom:15px;border-radius:10px;background:#0a1022;color:white;border:1px solid #33436d;font-size:16px;"></textarea>
+
+<input id="gameImage" type="url" placeholder="Game Image URL">
+
+<input id="gameLogo" type="url" placeholder="Game Logo URL">
+
+<input id="downloadUrl" type="url" placeholder="Download / Referral Link">
+
+<input id="playUrl" type="url" placeholder="Play Link (optional)">
+
+<label style="display:block;text-align:left;color:#aab3c8;margin-bottom:8px;">
+Launch Date & Time
+</label>
+
+<input id="launchAt" type="datetime-local">
+
+<button type="button" id="addGameButton">
+➕ Add Game
+</button>
+
+<div id="gameMessage" class="message"></div>
+
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
