@@ -240,6 +240,7 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const message = document.getElementById("message");
 const loginButton = document.getElementById("loginButton");
+const gameManager = document.getElementById("gameManager");
 const loginBox = document.getElementById("loginBox");
 const dashboard = document.getElementById("dashboard");
 const welcomeText = document.getElementById("welcomeText");
@@ -276,7 +277,7 @@ loginForm.addEventListener("submit", async function(event) {
 
     loginBox.style.display = "none";
     dashboard.style.display = "block";
-
+gameManager.style.display = "block";
     welcomeText.textContent =
       "Logged in as: " + data.user.email;
 
