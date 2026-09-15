@@ -318,6 +318,67 @@ async function checkUser() {
   }
 
 }
+const addGameButton = document.getElementById("addGameButton");
+const gameMessage = document.getElementById("gameMessage");
 
+addGameButton.addEventListener("click", async function () {
+
+  const name = document.getElementById("gameName").value.trim();
+  const description = document.getElementById("gameDescription").value.trim();
+  const image = document.getElementById("gameImage").value.trim();
+  const download = document.getElementById("downloadUrl").value.trim();
+  const play = document.getElementById("playUrl").value.trim();
+
+  if (!name || !description || !image || !download) {
+    gameMessage.textContent = "Please fill all required fields.";
+    gameMessage.className = "message error";
+    return;
+  }
+
+  addGameButton.disabled = true;
+  gameMessage.textContent = "Adding game...";
+
+  try {
+
+    const { data, error } = await client
+      .from("Games")
+      .insert([
+        {
+          Name: name,
+          Description: description,
+          Image_url: image,
+          Download_url: download,
+          Play_url: play || null
+        }
+      ])
+      .select();
+
+    if (error) {
+      gameMessage.textContent = error.message;
+      gameMessage.className = "message error";
+      addGameButton.disabled = false;
+      return;
+    }
+
+    gameMessage.textContent = "Game added successfully!";
+    gameMessage.className = "message success";
+
+    document.getElementById("gameName").value = "";
+    document.getElementById("gameDescription").value = "";
+    document.getElementById("gameImage").value = "";
+    document.getElementById("gameLogo").value = "";
+    document.getElementById("downloadUrl").value = "";
+    document.getElementById("playUrl").value = "";
+
+  } catch (err) {
+
+    gameMessage.textContent = err.message;
+    gameMessage.className = "message error";
+
+  }
+
+  addGameButton.disabled = false;
+
+});
 checkUser();
 </script>
