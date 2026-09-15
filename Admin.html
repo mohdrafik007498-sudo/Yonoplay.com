@@ -384,27 +384,7 @@ addGameButton.addEventListener("click", async function () {
   addGameButton.disabled = false;
 
 });
-      return;
-    }
 
-    gameMessage.textContent = "Game added successfully!";
-    gameMessage.className = "message success";
-
-    document.getElementById("gameName").value = "";
-    document.getElementById("gameDescription").value = "";
-    document.getElementById("gameImage").value = "";
-    document.getElementById("gameLogo").value = "";
-    document.getElementById("downloadUrl").value = "";
-    document.getElementById("playUrl").value = "";
-
-  } catch (err) {
-
-    gameMessage.textContent = err.message;
-    gameMessage.className = "message error";
-
-  }
-
-  addGameButton.disabled = false;
 
 });
 checkUser();
